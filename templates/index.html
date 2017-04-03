@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"> 
+    <title>{{ title }}</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/univoice.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/img_preview.css" media="screen" >
+</head>
+<body>
+<script>
+$().ready(function(){
+    $( "#tabs" ).tabs({
+      beforeLoad: function( event, ui ) {
+        ui.jqXHR.fail(function() {
+          ui.panel.html(
+            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+            "If this wouldn't be a demo." );
+        });
+      }
+    });
+	$( ".datepicker" ).datepicker({
+		dateFormat: "yy-mm-dd"
+	}); //.datepicker("setDate", new Date());
+
+});
+
+</script>
+<h1>{{ title }} - {{ user }} <button type="button" class="btn" onClick="window.location='{{root}}/logout'"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></button></h1>
+<hr>
+<div id="message"></div>
+ 
+<div id="tabs">
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="scans.html">Scans</a></li>
+    <li><a href="#stats">Statistics</a></li>
+  </ul>
+  <div id="home">
+	<ol>
+		<li>Mails tab: permit check/work on mails</li>
+		<li>Queues tab: work on mails analyzed and queued in redis</li>
+		<li>Statistics tab: work on long time storage</li>
+	</ul>
+  </div>
+  <div id="stats">
+	<input class='datepicker' id="statsDate" onChange="getStats(this)">
+	<table id="statsDetails">
+	</table>
+  </div>
+</div>
+
+<button onClick="window.location='{{root}}/logout'">D&eacute;connexion</button>
+
+</body>
+</html>

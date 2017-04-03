@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"> 
+    <title>{{ title }} - login</title>
+    <script src="{{root}}js/jquery.min.js"></script>
+	<style>
+	.error {
+		background-color: lightsalmon;
+	}
+	.ok {
+		background-color: lightgreen;
+	}
+	</style>
+</head>
+<body>
+<script>
+$().ready(function(){
+	setMessage("Veuillez vous identifiez");
+})
+
+function setMessage(msg,level,append){
+	if( level == undefined )
+		level="ok"
+	if( append )
+		msg = $('#message').html() + "<br>" + msg;
+	$('#message').removeClass('ok error').addClass(level).html(msg);
+}
+
+function login(){
+	var data={}
+	var error=false
+	var msg=""
+	$('input').each(function(k,v){
+		var fname=$(this).attr('name')
+		var fvalue=$(this).val()
+		
+		if( fvalue == undefined || fvalue==""){
+			error=true
+			msg += "Champ '"+fname+"'obligatoire<br>"
+		} else {
+			data[fname]=fvalue
+		}
+	})
+	
+	if( error ){
+		setMessage(msg,'error')
+	} else {
+		$.post('{{root}}login',data,loginCheck,'json')
+	}
+}
+
+function loginCheck(tab){
+	if( tab && tab.message ){
+		setMessage(tab.message,'ok')
+	}
+	if( tab && tab.error ){
+		setMessage(tab.error,'error',true)
+	} else {
+		window.location="{{root}}index.html"
+	}
+}
+</script>
+<h1>{{ title }} - login</h1>
+<hr>
+<div id="message"></div>
+<table border="0">
+	<tr><td>Pr&eacute;nom</td><td><input type="text" name="prenom"></td></tr>
+	<tr><td>Nom</td><td><input type="text" name="nom" value=""></td></tr>
+	<tr><td>Mot de passe</td><td><input type="password" name="id"></td></tr>
+	<tr><td colspan="2" align="center"><button onClick="return login()">Validez</button></td>
+</table>
+</body>
+</html>

@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+
+a {
+	text-decoration:none;
+	color:#f30;	
+}
+
+
+pre{
+	display:block;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-weight:normal;
+	padding:7px;
+	border:3px solid #bae2f0;
+	background:#e3f4f9;	
+	margin:.5em 0;
+	overflow:auto;
+	width:800px;
+}
+
+img{
+	border:0px;
+	box-shadow: 2px 2px 3px #555562;
+}
+
+
+#preview{
+	position:absolute;
+	border:3px solid #ccc;
+	background:#333;
+	padding:5px;
+	display:none;
+	color:#fff;
+	box-shadow: 4px 4px 3px rgba(103, 115, 130, 1);
+}
