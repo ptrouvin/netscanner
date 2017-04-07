@@ -4,6 +4,8 @@
     <meta charset="UTF-8"> 
     <title>{{ title }} - login</title>
     <script src="{{root}}js/jquery.min.js"></script>
+	<script src="{{root}}js/lang.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/lang.css">
 	<style>
 	.error {
 		background-color: lightsalmon;
@@ -16,7 +18,9 @@
 <body>
 <script>
 $().ready(function(){
-	setMessage("Veuillez vous identifiez");
+	setMessage("<span lang='fr'>Veuillez vous identifiez</span><span lang='en'>Identify yourself</span>");
+	
+	setLang('en');
 })
 
 function setMessage(msg,level,append){
@@ -37,7 +41,7 @@ function login(){
 		
 		if( fvalue == undefined || fvalue==""){
 			error=true
-			msg += "Champ '"+fname+"'obligatoire<br>"
+			msg += "<span lang='fr'>Champ '"+fname+"' est obligatoire</span><span lang='en'>Field '"+fname+"' is mandatory</span><br>"
 		} else {
 			data[fname]=fvalue
 		}
@@ -61,14 +65,15 @@ function loginCheck(tab){
 	}
 }
 </script>
+<button class="flag" onClick="setLang('en')">en</button><button class="flag" onClick="setLang('fr')">fr</button>
 <h1>{{ title }} - login</h1>
 <hr>
 <div id="message"></div>
 <table border="0">
-	<tr><td>Pr&eacute;nom</td><td><input type="text" name="prenom"></td></tr>
-	<tr><td>Nom</td><td><input type="text" name="nom" value=""></td></tr>
-	<tr><td>Mot de passe</td><td><input type="password" name="id"></td></tr>
-	<tr><td colspan="2" align="center"><button onClick="return login()">Validez</button></td>
+	<tr><td><span lang="fr">Pr&eacute;nom</span><span lang="en">Firstname</span></td><td><input type="text" name="prenom"></td></tr>
+	<tr><td><span lang="fr">Nom</span><span lang="en">Lastname</span></td><td><input type="text" name="nom" value=""></td></tr>
+	<tr><td><span lang="fr">Mot de passe</span><span lang="en">Password</span></td><td><input type="password" name="id"></td></tr>
+	<tr><td colspan="2" align="center"><button onClick="return login()"><span lang="fr">Validez</span><span lang="en">Valid</span></button></td>
 </table>
 </body>
 </html>
