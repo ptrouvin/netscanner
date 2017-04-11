@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8"> 
     <title>{{ title }} - login</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/flags.css">
     <script src="{{root}}js/jquery.min.js"></script>
-	<script src="{{root}}js/lang.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/lang.css">
+	<script src="{{root}}js/bootstrap.min.js"></script>
+	<script src="{{root}}js/jquery.flagstrap.min.js"></script>
+	<script src="js/jquery-lang.js" charset="utf-8" type="text/javascript"></script>
 	<style>
 	.error {
 		background-color: lightsalmon;
@@ -18,9 +22,33 @@
 <body>
 <script>
 $().ready(function(){
-	setMessage("<span lang='fr'>Veuillez vous identifiez</span><span lang='en'>Identify yourself</span>");
-	
-	setLang('en');
+	setMessage("<span lang='en'>Identify yourself</span>");
+    $('.flagstrap').flagStrap({
+        countries: {
+            "US": "United States",
+			"GB": "Great britain",
+			"FR": "France",
+			"FR": "France"
+        },
+        onSelect: function(value, element) {
+			console.log("flagstrap to "+value);
+			if( value.match(/GB|US/) )
+			    window.lang.change("en");
+			else
+				window.lang.change("fr");
+        },
+        placeholder: {
+            value: "",
+            text: "Please select a country/language"
+        }
+    });
+	var lang = new Lang();
+
+	lang.dynamic('th', 'js/langpack/th.json');
+
+	lang.init({
+		defaultLang: 'fr'
+	});
 })
 
 function setMessage(msg,level,append){
@@ -41,7 +69,7 @@ function login(){
 		
 		if( fvalue == undefined || fvalue==""){
 			error=true
-			msg += "<span lang='fr'>Champ '"+fname+"' est obligatoire</span><span lang='en'>Field '"+fname+"' is mandatory</span><br>"
+			msg += "<span lang='en'>Field</span> '"+fname+"' <span lang='en'>is mandatory</span><br>"
 		} else {
 			data[fname]=fvalue
 		}
@@ -65,7 +93,18 @@ function loginCheck(tab){
 	}
 }
 </script>
-<button class="flag" onClick="setLang('en')">en</button><button class="flag" onClick="setLang('fr')">fr</button>
+<form>
+    <div class="form-group">
+        <div class="flagstrap"
+             data-input-name="lang"
+             data-selected-country="US"
+             data-button-size="btn-md"
+             data-button-type="btn-default"
+             data-scrollable-height="250px"
+             data-scrollable="true">
+        </div>
+    </div>
+</form>
 <h1>{{ title }} - login</h1>
 <hr>
 <div id="message"></div>
